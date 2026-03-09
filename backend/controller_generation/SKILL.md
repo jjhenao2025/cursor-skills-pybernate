@@ -1,6 +1,6 @@
 ---
 name: controller_generation
-description: Una página = un controlador; helpers y utilidades en comunes (revisar si existen, no duplicar). Usar al crear controladores o funciones de utilidad reutilizables.
+description: Una página = un controlador; lógica de datos reutilizable en servicios/comunes (no repetir por controlador); helpers en comunes. Usar al crear controladores o funciones de utilidad reutilizables.
 ---
 
 # Backend – controladores y helpers en comunes
@@ -18,7 +18,16 @@ description: Una página = un controlador; helpers y utilidades en comunes (revi
 
 ---
 
-## 2. Helpers y utilidades – siempre en comunes
+## 2. Reutilizar lógica: no repetir por controlador
+
+- **Una página = un controlador** no implica duplicar lógica. Si varias páginas necesitan los mismos datos (ej. movimientos, productos, clientes), la **obtención y transformación de esos datos** debe vivir en una capa compartida: **servicio**, módulo de negocio o comunes.
+- Cada **controlador** consume esa lógica compartida y se encarga de **cómo** se usan los datos en esa pantalla: qué filtros aplicar, qué formato devolver, qué agregaciones o permisos aplicar para ese endpoint.
+- **Ejemplo:** Página A y página B necesitan "movimientos". Crear un servicio (o función en un módulo compartido) que obtenga los movimientos; el controlador de la página A lo llama y devuelve movimientos con un formato/filtros para A; el controlador de la página B lo llama y devuelve movimientos con formato/filtros para B. No implementar la obtención de movimientos dos veces.
+- Resumen: **lógica de datos reutilizable en servicios/comunes; cada controlador orquesta y adapta la respuesta a lo que su página necesita.**
+
+---
+
+## 3. Helpers y utilidades – siempre en comunes
 
 **Tipos de funciones que van en comunes:** conversión de fechas (date/datetime → `"YYYY-MM-DD"`), normalizar RUT, formateo de números o strings, validadores o sanitizadores pequeños reutilizables. Ejemplos de nombres: `_fecha_a_str`, `_normalize_rut`. Documentar con **docstring**.
 
@@ -32,6 +41,6 @@ description: Una página = un controlador; helpers y utilidades en comunes (revi
 
 ---
 
-## 3. Lo que NO debe crearse
+## 4. Lo que NO debe crearse
 
 - **No** crear `_query_builder_to_orm_objects` ni funciones equivalentes que conviertan resultados de `QueryBuilder.get()` (lista de diccionarios) en objetos ORM usando `set_dict`, `_exists` o instanciar el modelo y cargar el dict a mano. Usar QueryBuilder/ORM tal como los define pybernate.

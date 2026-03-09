@@ -1,6 +1,6 @@
 ---
 name: frontend_backend_sync
-description: El backend crea las rutas; el frontend las recibe y las crea automáticamente. Una página = un controlador. Usar al añadir pantallas o explicar el flujo de sincronización.
+description: El backend crea las rutas; el frontend las recibe y las crea automáticamente. Una página = un controlador; lógica compartida en servicios (no duplicar). Usar al añadir pantallas o explicar el flujo de sincronización.
 ---
 
 # Integración – sincronización frontend ↔ backend
@@ -9,10 +9,11 @@ description: El backend crea las rutas; el frontend las recibe y las crea autom�
 
 ---
 
-## 1. Una página → un controlador
+## 1. Una página → un controlador (sin duplicar lógica)
 
 - Por cada **página** o pantalla de la aplicación (ej. listado de productos, órdenes maestro-detalle) debe existir un **controlador** (o endpoints asociados) en el **backend** que atienda la lógica y los datos de esa pantalla.
 - El controlador expone los endpoints CRUD de la entidad (GET/POST /api/entidad, GET/PUT/DELETE /api/entidad/:id) y/o lógica específica que la página necesite.
+- **No repetir lógica entre controladores:** si varias páginas necesitan los mismos datos (ej. movimientos), esa lógica debe estar en un **servicio o módulo compartido**; cada controlador la reutiliza y adapta la respuesta a lo que su página requiere (filtros, formato, agregaciones). Lo que cambia por controlador es **cómo se usan** esos datos, no la implementación de la obtención.
 - No crear páginas en el frontend que llamen a APIs o rutas que no tengan un controlador definido en el backend.
 
 ---
