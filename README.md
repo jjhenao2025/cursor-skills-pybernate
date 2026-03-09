@@ -35,10 +35,10 @@ Cada carpeta contiene un `SKILL.md` con el nombre, descripción y reglas de la s
    ```
 3. Copia la carpeta `architecture`, `backend`, `frontend` e `integration` dentro de `.cursor/skills/`:
    ```bash
-   cp -r /ruta/al/clon/cursor-skills-pybernate-ruibernate/architecture .cursor/skills/
-   cp -r /ruta/al/clon/cursor-skills-pybernate-ruibernate/backend .cursor/skills/
-   cp -r /ruta/al/clon/cursor-skills-pybernate-ruibernate/frontend .cursor/skills/
-   cp -r /ruta/al/clon/cursor-skills-pybernate-ruibernate/integration .cursor/skills/
+   cp -r /ruta/al/clon/cursor-skills-pybernate/architecture .cursor/skills/
+   cp -r /ruta/al/clon/cursor-skills-pybernate/backend .cursor/skills/
+   cp -r /ruta/al/clon/cursor-skills-pybernate/frontend .cursor/skills/
+   cp -r /ruta/al/clon/cursor-skills-pybernate/integration .cursor/skills/
    ```
    O en una sola línea (desde la raíz del clon):
    ```bash
@@ -51,7 +51,7 @@ Para mantener las skills actualizadas desde este repo:
 
 ```bash
 cd /ruta/a/tu/proyecto
-git submodule add https://github.com/TU_USUARIO/cursor-skills-pybernate-ruibernate.git .cursor/skills-pybernate
+git submodule add https://github.com/jjhenao2025/cursor-skills-pybernate.git .cursor/skills-pybernate
 ```
 
 Luego en Cursor puedes referenciar las skills desde `.cursor/skills-pybernate/` (depende de cómo Cursor resuelva rutas; si solo lee `.cursor/skills/`, copia o enlaza ahí el contenido del submódulo).
@@ -63,10 +63,10 @@ Si tienes el repo clonado en un lugar fijo:
 ```bash
 cd /ruta/a/tu/proyecto
 mkdir -p .cursor/skills
-ln -s /ruta/al/clon/cursor-skills-pybernate-ruibernate/architecture .cursor/skills/architecture
-ln -s /ruta/al/clon/cursor-skills-pybernate-ruibernate/backend .cursor/skills/backend
-ln -s /ruta/al/clon/cursor-skills-pybernate-ruibernate/frontend .cursor/skills/frontend
-ln -s /ruta/al/clon/cursor-skills-pybernate-ruibernate/integration .cursor/skills/integration
+ln -s /ruta/al/clon/cursor-skills-pybernate/architecture .cursor/skills/architecture
+ln -s /ruta/al/clon/cursor-skills-pybernate/backend .cursor/skills/backend
+ln -s /ruta/al/clon/cursor-skills-pybernate/frontend .cursor/skills/frontend
+ln -s /ruta/al/clon/cursor-skills-pybernate/integration .cursor/skills/integration
 ```
 
 Así, al actualizar el clon, tu proyecto usa siempre la última versión de las skills.
