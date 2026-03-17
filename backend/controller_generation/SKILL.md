@@ -5,7 +5,7 @@ description: Una página = un controlador; lógica de datos reutilizable en serv
 
 # Backend – controladores y helpers en comunes
 
-**Cuándo usar:** Al crear una nueva pantalla/entidad (controlador en backend), o cuando crees funciones de utilidad (fecha a string, normalizar RUT, etc.).
+**Cuándo usar:** Al crear una nueva pantalla/entidad (controlador en backend), al generar controladores con las utilidades de `orm`, o cuando crees funciones de utilidad (fecha a string, normalizar RUT, etc.).
 
 ---
 
@@ -44,3 +44,51 @@ description: Una página = un controlador; lógica de datos reutilizable en serv
 ## 4. Lo que NO debe crearse
 
 - **No** crear `_query_builder_to_orm_objects` ni funciones equivalentes que conviertan resultados de `QueryBuilder.get()` (lista de diccionarios) en objetos ORM usando `set_dict`, `_exists` o instanciar el modelo y cargar el dict a mano. Usar QueryBuilder/ORM tal como los define pybernate.
+
+---
+
+## 5. Cómo generar un controlador (flujo manual con IPython)
+
+En este proyecto, los **controladores de backend se generan manualmente** usando utilidades de `orm`. El agente **no debe ejecutar estos comandos**, sino **explicar al usuario** los pasos y pedirle que los ejecute en su terminal.
+
+### Pasos para el usuario
+
+1. **Abrir la terminal** en la carpeta del backend, por ejemplo:
+
+   - `cd flujappi2-back-main` (o el directorio raíz del backend en tu entorno).
+
+2. **Entrar a IPython**:
+
+   - Ejecutar: `ipython`
+
+3. **Importar las utilidades de generación**:
+
+   - En la consola de IPython:
+     - `from orm import gen_single_controller, reverse_engineer`
+
+4. **Generar el controlador para una tabla/objeto concreto**:
+
+   - Ejecutar:
+     - `gen_single_controller("{nombre_tabla}")`
+   - Sustituir `"{nombre_tabla}"` por el nombre real de la tabla/entidad para la que quieres el controlador.
+
+5. **Revisar el archivo generado**:
+
+   - Verificar:
+     - Ubicación del archivo de controlador.
+     - Nombres de endpoints generados.
+     - Que respete las reglas de `pybernate_rules` y `endpoint_rules`.
+
+### Instrucciones para el agente
+
+- Cuando el usuario pida **crear un nuevo controlador**:
+  - **No** intentes escribirlo “desde cero” ignorando el generador.
+  - Indica explícitamente los pasos anteriores y solicita al usuario que:
+    - Abra la terminal en el backend.
+    - Entre a IPython.
+    - Ejecute `from orm import gen_single_controller, reverse_engineer`.
+    - Ejecute `gen_single_controller("{nombre_tabla}")` con el nombre correcto.
+- Después de eso, puedes ayudar a:
+  - Revisar el código generado.
+  - Ajustar detalles según las reglas de arquitectura.
+
